@@ -27,7 +27,7 @@ In the second part, a game console is constructed. This console is built upon a 
 
 The console has some specific features that will be described here. All of the aspects of hardware requirements, memory usage, input and output... will be explained. Based on the image below, all requirements and specifications will be defined, from the controller to the interpreter to the graphics control. Any of these blocks is a stand-alone configuration, but the interpreter and the graphics control compose the actual console.
 
-![Game console overview]()
+![Game console overview](https://github.com/Dentaku1992/LumenProgrammingLanguage/raw/master/Verslag/tex/GameConsole/LumenGameConsoleOverview.png)
 
 ### Controller
 A total of 8 push buttons are present on the controller, each with a pressed and a released state. When the user presses a button the state changes form released to pressed and vice versa. The controller uses an SPI interface to allow communication with the game. Multiplayer is possible when connecting 2 controllers at once.
@@ -46,7 +46,7 @@ Next to the select and start buttons, A and B are located. These two buttons are
 ####Interface
 The controller connects through a three-wire interface similar to SPI. A maximum of two controllers can be connected, addressed as 0 and 1. The timing can be seen in this view (clockperiod of 6µs, from top to bottom: Latch, Clock, Data):
 
-![Timing Diagram]()
+![Timing Diagram](https://github.com/Dentaku1992/LumenProgrammingLanguage/raw/master/Verslag/tex/GameController/ControllerInterface.PNG)
 
 
 ###Interpreter
@@ -55,6 +55,8 @@ The interpreter is the main unit of the console. It executes the code and sends 
 - MCU: PIC18F4620 (8-bit, 8 MHz)
 - RAM: 3968 bytes - 256 bytes can be used by one game
 - Input: NES controller (max 2)
+
+![Timing Diagram](https://github.com/Dentaku1992/LumenProgrammingLanguage/raw/master/Verslag/tex/InterpreterWorking.png)
 
 ####Peripherals
 
@@ -75,7 +77,7 @@ RAM can be used to store data during the execution of a program, it is 256 items
 ####Cartridge memory mapping
 An important aspect of every game is the memory mapping on the cartridge. Every item (code, sprites, strings and maps) has its own specific start- and endaddress to establish a solid and correct performance. The mapping is as follows:
 
-![Cartridge memory mapping]()
+![Cartridge memory mapping](https://github.com/Dentaku1992/LumenProgrammingLanguage/raw/master/Verslag/tex/GameConsole/MemoryMap.png)
 
 #####Code
 This is the actual bytecode that will be interpreted and executed. An in-depth look on the instructionset can be found in chapter 2.1. The maximum codesize is 64kB, or 65536 bytes. If no jump is performed at byte 65535, the program counter will overflow, resulting in a reset of the program counter to zero. Code examples can be found in the appendix on page 67.
@@ -165,14 +167,14 @@ but some functions require a 16 bit argument, e.g. jumps. To correctly format th
 
 The instructions can be divided into seperate groups, depending on their function:
 
-__Variables__ Loading of values, register manipulations . . . [page 10]
-__Mathematics__ Adding, subtracting, multiplying . . . [page 15]
-__Logic__ Logic AND, OR, XOR and NOT operations. [page 23]
-__Jumps__ and calls Program counter manipulations. [page 27]
-__Stack__ Push and pop values from and to the stack. [page 30]
-__Graphics__ Draw sprites, strings . . . [page 33]
-__Timer and delays__ Read and reset the timer and perform delays. [page 40]
-__Data read/writes__ Read or write from the cartridge data memory. [page 39]
+- __Variables__ Loading of values, register manipulations . . . [page 10]
+- __Mathematics__ Adding, subtracting, multiplying . . . [page 15]
+- __Logic__ Logic AND, OR, XOR and NOT operations. [page 23]
+- __Jumps__ and calls Program counter manipulations. [page 27]
+- __Stack__ Push and pop values from and to the stack. [page 30]
+- __Graphics__ Draw sprites, strings . . . [page 33]
+- __Timer and delays__ Read and reset the timer and perform delays. [page 40]
+- __Data read/writes__ Read or write from the cartridge data memory. [page 39]
 
 See the pdf for more information about every instruction.
 
