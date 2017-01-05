@@ -179,5 +179,7 @@ See the pdf for more information about every instruction.
 #Authors
 
 Gert-Jan Andries - info@gertjanandries.com - www.gertjanandries.com
+
 Nick Steen
+
 Xavier Dejager
