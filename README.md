@@ -3,9 +3,9 @@
 LUMEN stands for Language For Ultraportable And Microcontroller-based Embedded eNvironments. It is an ultra lightweight programming language intended to design arcade games on embedded devices.
 
 The core features of LUMEN are:
-	- Easy to understand
-	- Small memory footprint on any platform
-	- Minimal number of opcodes
+- Easy to understand
+- Small memory footprint on any platform
+- Minimal number of opcodes
 
 ##Overview of the project
 
