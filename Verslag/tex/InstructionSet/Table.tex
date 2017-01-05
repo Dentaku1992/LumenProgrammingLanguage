@@ -1,0 +1,67 @@
+\begin{table}[h]
+\begin{tabular}{llllll}
+Mnemonic & Operands & Operation & Affected & Opcode & Cfr.\\
+LD & Op1: RegisterOp2: 8 bit unsigned integer, &  &  & 0x00 & \pageref(subsec:LD_instruction)\\
+CPY & Op1: RegisterOp2: Register, &  &  & 0x01 & \pageref(subsec:CPY_instruction)\\
+ST & Op1: RAM addressOp2: Register, &  &  & 0x02 & \pageref(subsec:ST_instruction)\\
+STI & Op1: RAM addressOp2: 8 bit unsigned integer, &  &  & 0x03 & \pageref(subsec:STI_instruction)\\
+LR & Op1: RegisterOp2: RAM address, &  &  & 0x04 & \pageref(subsec:LR_instruction)\\
+EQU & Op1: RegisterOp2: Register, &  &  & 0x05 & \pageref(subsec:EQU_instruction)\\
+GT & Op1: RegisterOp2: Register, &  &  & 0x06 & \pageref(subsec:GT_instruction)\\
+LT & Op1: RegisterOp2: Register, &  &  & 0x07 & \pageref(subsec:LT_instruction)\\
+ADD & Op1: RegisterOp2: Register, &  &  & 0x08 & \pageref(subsec:ADD_instruction)\\
+ADDI & Op1: RegisterOp2: 8 bit unsigned integer, &  &  & 0x09 & \pageref(subsec:ADDI_instruction)\\
+SUB & Op1: RegisterOp2: Register, &  &  & 0x0A & \pageref(subsec:SUB_instruction)\\
+SUBI & Op1: RegisterOp2: 8 bit unsigned integer, &  &  & 0x0B & \pageref(subsec:SUBI_instruction)\\
+MUL & Op1: RegisterOp2: Register, &  &  & 0x0C & \pageref(subsec:MUL_instruction)\\
+MULI & Op1: RegisterOp2: 8 bit unsigned integer, &  &  & 0x0D & \pageref(subsec:MULI_instruction)\\
+DIV & Op1: RegisterOp2: Register, &  &  & 0x0E & \pageref(subsec:DIV_instruction)\\
+DIVI & Op1: RegisterOp2: 8 bit unsigned integer, &  &  & 0x0F & \pageref(subsec:DIVI_instruction)\\
+INC & Op1: Register, &  &  & 0x10 & \pageref(subsec:INC_instruction)\\
+DEC & Op1: Register, &  &  & 0x11 & \pageref(subsec:DEC_instruction)\\
+PWR & Op1: RegisterOp2: Register, &  &  & 0x12 & \pageref(subsec:PWR_instruction)\\
+PWRI & Op1: RegisterOp2: 8 bit unsigned integer, &  &  & 0x13 & \pageref(subsec:PWRI_instruction)\\
+SQRT & Op1: Register, &  &  & 0x14 & \pageref(subsec:SQRT_instruction)\\
+LOG & Op1: RegisterOp2: Register, &  &  & 0x15 & \pageref(subsec:LOG_instruction)\\
+LOGI & Op1: RegisterOp2: Fixed value, &  &  & 0x16 & \pageref(subsec:LOGI_instruction)\\
+RAND & Op1: RegisterOp2: Register, &  &  & 0x17 & \pageref(subsec:RAND_instruction)\\
+RANDI & Op1: 8 bit unsigned integerOp2: 8 bit unsigned integer, &  &  & 0x18 & \pageref(subsec:RANDI_instruction)\\
+NOP &  &  &  & 0x19 & \pageref(subsec:NOP_instruction)\\
+AND & Op1: RegisterOp2: Register, &  &  & 0x1A & \pageref(subsec:AND_instruction)\\
+ANDI & Op1: RegisterOp2: 8 bit unsigned integer, &  &  & 0x1B & \pageref(subsec:ANDI_instruction)\\
+OR & Op1: RegisterOp2: Register, &  &  & 0x1C & \pageref(subsec:OR_instruction)\\
+ORI & Op1: RegisterOp2: 8 bit unsigned integer, &  &  & 0x1D & \pageref(subsec:ORI_instruction)\\
+XOR & Op1: RegisterOp2: Register, &  &  & 0x1E & \pageref(subsec:XOR_instruction)\\
+XORI & Op1: RegisterOp2: 8 bit unsigned integer, &  &  & 0x1F & \pageref(subsec:XORI_instruction)\\
+NOT & Op1: Register, &  &  & 0x20 & \pageref(subsec:NOT_instruction)\\
+STB & Op1: RegisterOp2: 8 bit unsigned integer, &  &  & 0x21 & \pageref(subsec:STB_instruction)\\
+CLB & Op1: RegisterOp2: 8 bit unsigned integer, &  &  & 0x22 & \pageref(subsec:CLB_instruction)\\
+JMP & Op1: 16 bit unsigned integer, &  &  & 0x23 & \pageref(subsec:JMP_instruction)\\
+JMPR & Op1: 16 bit unsigned integer, &  &  & 0x24 & \pageref(subsec:JMPR_instruction)\\
+JMPZ & Op1: 16 bit unsigned integer, &  &  & 0x25 & \pageref(subsec:JMPZ_instruction)\\
+JMPRZ & Op1: 16 bit unsigned integer, &  &  & 0x26 & \pageref(subsec:JMPRZ_instruction)\\
+JMPNZ & Op1: 16 bit unsigned integer, &  &  & 0x27 & \pageref(subsec:JMPNZ_instruction)\\
+JMPRNZ & Op1: 16 bit unsigned integer, &  &  & 0x28 & \pageref(subsec:JMPRNZ_instruction)\\
+CALL & Op1: 16 bit unsigned integer, &  &  & 0x29 & \pageref(subsec:CALL_instruction)\\
+RET &  &  &  & 0x2A & \pageref(subsec:RET_instruction)\\
+PUSH & Op1: Register, &  &  & 0x2B & \pageref(subsec:PUSH_instruction)\\
+PUSHI & Op1: 8 bit unsigned value, &  &  & 0x2C & \pageref(subsec:PUSHI_instruction)\\
+POP & Op1: Register, &  &  & 0x2D & \pageref(subsec:POP_instruction)\\
+BRD & Op1: 8 bit unsigned integer (0 or 1), &  &  & 0x2E & \pageref(subsec:BRD_instruction)\\
+BRDS & Op1: 8 bit unsigned integer (0 or 1)Op2: 8 bit unsigned integer (0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40 or 0x80), &  &  & 0x2F & \pageref(subsec:BRDS_instruction)\\
+TRD & Op1: RegisterOp2: Register, &  &  & 0x30 & \pageref(subsec:TRD_instruction)\\
+WAITF & Op1: 8 bit unsigned integer (0 or 1)Op2: 8 bit unsigned integer (0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40 or 0x80), &  &  & 0x31 & \pageref(subsec:WAITF_instruction)\\
+SCRH &  &  &  & 0x32 & \pageref(subsec:SCRH_instruction)\\
+SCRW &  &  &  & 0x33 & \pageref(subsec:SCRW_instruction)\\
+ASPR & Op1: 8 bit unsigned integerOp2: 8 bit unsigned integer, &  &  & 0x34 & \pageref(subsec:ASPR_instruction)\\
+DSPR & Op1: 8 bit unsigned integerOp2: RegisterOp3: Register, &  &  & 0x35 & \pageref(subsec:DSPR_instruction)\\
+RSPR & Op1: 8 bit unsigned integer, &  &  & 0x36 & \pageref(subsec:RSPR_instruction)\\
+CKSPR & Op1: 8 bit unsigned integerOp2: 8 bit unsigned integer, &  &  & 0x37 & \pageref(subsec:CKSPR_instruction)\\
+DMAP & Op1: 8 bit unsigned integer, &  &  & 0x38 & \pageref(subsec:DMAP_instruction)\\
+DSTR & Op1: 8 bit unsigned integerOp2: RegisterOp3: Register, &  &  & 0x39 & \pageref(subsec:DSTR_instruction)\\
+WAIT & Op1: 8 bit unsigned integerOp2: Register, &  &  & 0x3A & \pageref(subsec:WAIT_instruction)\\
+WAITI & Op1: 8 bit unsigned integerOp2: 8 bit unsigned integer, &  &  & 0x3B & \pageref(subsec:WAITI_instruction)\\
+CTMR &  &  &  & 0x3C & \pageref(subsec:CTMR_instruction)\\
+RTMR &  &  &  & 0x3D & \pageref(subsec:RTMR_instruction)\\
+\end{tabular}
+\end{table}

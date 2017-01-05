@@ -1,0 +1,1893 @@
+\chapter{Functions}
+\section{Interpreter controller}
+\label{cha:InstructionSet}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  NOP  (0x00)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore nop()\bigskip\\
+Summary &  This function has exceptionally well performance at doing nothing \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  LD  (0x01)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore load(unsigned char address, unsigned char value)\bigskip\\
+Summary &  Loads a fixed value into a specific register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  CPY  (0x02)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore copy(unsigned char destaddr, unsigned char srcaddr)\bigskip\\
+Summary &  Copies te value from a register to another register. The value in the source register is retained. \bigskip\\
+Parameters &
+\nextitem \textbf{destaddr:}  The destaddr parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{srcaddr:}  The srcaddr parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  ST  (0x03)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore store(unsigned char destaddr, unsigned char srcaddr)\bigskip\\
+Summary &  Store the value of a register to RAM. \bigskip\\
+Parameters &
+\nextitem \textbf{destaddr:}  The destaddr parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{srcaddr:}  The srcaddr parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  STI  (0x04)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore storeImmediate(unsigned char address, unsigned char value)\bigskip\\
+Summary &  Store a fixed value to RAM. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  LDR  (0x05)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore loadRam(unsigned char destaddr, unsigned char srcaddr)\bigskip\\
+Summary &  Load a value from RAM into a register. \bigskip\\
+Parameters &
+\nextitem \textbf{destaddr:}  The destaddr parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{srcaddr:}  The srcaddr parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  CMP  (0x06)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore compare(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Compare two values of registers. Two results are possible: 0 means not equal, not 0 means equal. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  GT  (0x07)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore greaterThan(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Check if the first register's value is greater than the second register's value. Two results are possible: 0 means register 2's value is bigger, not 0 means register 1's value is bigger. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  GTI  (0x08)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore greaterThanImmediate(unsigned char address, unsigned char value)\bigskip\\
+Summary &  Check if a register value is greater than a fixed value Two results are possible: 0 means the fixed value value is bigger, not 0 means the register's value is bigger. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  LT  (0x09)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore lessThan(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Check if the first register's value is smaller than the second register's value. Two results are possible: 0 means register 2's value is smaller, not 0 means register 1's value is smaller. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  LTI  (0x0A)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore lessThanImmediate(unsigned char address, unsigned char value)\bigskip\\
+Summary &  Check if a register value is smaller than a fixed value. Two results are possible: 0 means the fixed value is smaller, not 0 means the register's value is smaller. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SWAP  (0x0B)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore swap(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Swap the values of two registers. Each register gets the value of the other register in one instruction. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SWAPR  (0x0C)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore swapRam(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Swap the values of two RAM addresses. Each RAM address gets the value of the other RAM address in one instruction. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  ADD  (0x0D)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore add(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Add the values of two registers. The result is stored in the first register. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  ADDI  (0x0E)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore addImmediate(unsigned char address, unsigned char value)\bigskip\\
+Summary &  Add a fixed value to the value of a register. The result is stored in the register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SUB  (0x0F)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore subtract(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Subtract the values of two registers. The result is stored in the first register. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SUBI  (0x10)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore subtractImmediate(unsigned char address, unsigned char value)\bigskip\\
+Summary &  Subtract a fixed value from the value of a register. The result is stored in the register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  MUL  (0x11)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore multiply(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Multiply the values of two registers. The result is stored in the first register. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  MULI  (0x12)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore multiplyImmediate(unsigned char address, unsigned char value)\bigskip\\
+Summary &  Multiply a fixed value with the value of a register. The result is stored in the register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  DIV  (0x13)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore divide(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Divide the value of the first register by the value of the second register. The result is stored in the first register. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  DIVI  (0x14)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore divideImmediate(unsigned char address, unsigned char value)\bigskip\\
+Summary &  Divide the value of a register by a fixed value. The result is stored in the register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  INC  (0x15)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore increment(unsigned char address)\bigskip\\
+Summary &  Increment the value of a register by one. The result is stored in the register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  DEC  (0x16)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore decrement(unsigned char address)\bigskip\\
+Summary &  Decrement the value of a register by one. The result is stored in the register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  POW  (0x17)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore power(unsigned char destaddr, unsigned char pwraddr)\bigskip\\
+Summary &  Calculate the power of the value of a register. The power is the value of a register with the address in the second argument. The result is stored in the first register. \bigskip\\
+Parameters &
+\nextitem \textbf{destaddr:}  The destaddr parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{pwraddr:}  The pwraddr parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  POWI  (0x18)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore pwrvalImmediate(unsigned char destaddr, unsigned char pwrval)\bigskip\\
+Summary &  Calculate the power of the value of a register. The power is a fixed value given as the second argument. The result is stored in the register. \bigskip\\
+Parameters &
+\nextitem \textbf{destaddr:}  The destaddr parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{pwrval:}  The pwrval parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SQRT  (0x19)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore squareRoot(unsigned char address)\bigskip\\
+Summary &  Calculate the square root of the value of a register. The result is stored in the register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  LOG2  (0x1A)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore log2(unsigned char address)\bigskip\\
+Summary &  Calculate the log (base 2) of the value of a register. The result is stored in the register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  LOG10  (0x1B)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore log10(unsigned char address)\bigskip\\
+Summary &  Calculate the log (base 10) of the value of a register. The result is stored in the register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  RND  (0x1C)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore rand(unsigned char rangemin, unsigned char rangemax)\bigskip\\
+Summary &  Generate a random value in a given range. The value is an unsigned char. The range is defined by the first and the second argument as addresses of registers. \bigskip\\
+Parameters &
+\nextitem \textbf{rangemin:}  The rangemin parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{rangemax:}  The rangemax parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  RNDI  (0x1D)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore randImmediate(unsigned char rangemin, unsigned char rangemax)\bigskip\\
+Summary &  Generate a random value in a given range. The value is an unsigned char. The range is defined by the first and the second argument as fixed values. \bigskip\\
+Parameters &
+\nextitem \textbf{rangemin:}  The rangemin parameter requires an unsigned short containing an 8 bit value.
+\nextitem \textbf{rangemax:}  The rangemax parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  AND  (0x1E)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore bitwiseAnd(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Performs a bitwise AND on the values of two registers. The result is stored in the HL register. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  ANDI  (0x1F)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore bitwiseAndImmediate(unsigned char address, unsigned char value)\bigskip\\
+Summary &  Performs a bitwise AND on the value of a register and a fixed value. The result is stored in the HL register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  OR  (0x20)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore bitwiseOr(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Performs a bitwise OR on the values of two registers. The result is stored in the HL register. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  ORI  (0x21)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore bitwiseOrImmediate(unsigned char address, unsigned char value)\bigskip\\
+Summary &  Performs a bitwise OR on the value of a register and a fixed value. The result is stored in the HL register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  XOR  (0x22)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore bitwiseXor(unsigned char firstaddress, unsigned char secondaddress)\bigskip\\
+Summary &  Performs a bitwise XOR on the values of two registers. The result is stored in the HL register. \bigskip\\
+Parameters &
+\nextitem \textbf{firstaddress:}  The firstaddress parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{secondaddress:}  The secondaddress parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  XORI  (0x23)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore bitwiseXorImmediate(unsigned char address, unsigned char value)\bigskip\\
+Summary &  Performs a bitwise XOR on the value of a register and a fixed value. The result is stored in the HL register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  NOT  (0x24)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore bitwiseNot(unsigned char address)\bigskip\\
+Summary &  Performs a bitwise NOT of the value of a registers. The result is stored in the HL register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SBIT  (0x25)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore setBit(unsigned char address, unsigned char position)\bigskip\\
+Summary &  Sets a bit in a register's value, sepcified by the second argument. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{position:}  The position parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  CBIT  (0x26)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore clearBit(unsigned char address, unsigned char position)\bigskip\\
+Summary &  Clears a bit in a register's value, sepcified by the second argument. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\nextitem \textbf{position:}  The position parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  JMP  (0x27)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore jump(unsigned short address)\bigskip\\
+Summary &  Jumps inconditionally to the instruction address specified in the first argument. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 16 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  JMPR  (0x28)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore jumpRelative(unsigned short address)\bigskip\\
+Summary &  Jumps inconditionally by incrementing the program counter with the value of the first argument. If the the program counter overflows, execution of the program is aborted. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 16 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  JMPZ  (0x29)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore jumpIfZero(unsigned short address)\bigskip\\
+Summary &  Jumps if the HL register's value equals zero to the instruction address specified in the first argument. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 16 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  JMPRZ  (0x2A)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore jumpRelativeIfZero(unsigned short address)\bigskip\\
+Summary &  Jumps if the HL register's value equals zero by incrementing the program counter with the value of the first argument. If the the program counter overflows, execution of the program is aborted. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 16 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  JMPNZ  (0x2B)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore jumpIfNotZero(unsigned short address)\bigskip\\
+Summary &  Jumps if the HL register's value does not equal zero to the instruction address specified in the first argument. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 16 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  JMPRNZ  (0x2C)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore jumpRelativeIfNotZero(unsigned short address)\bigskip\\
+Summary &  Jumps if the HL register's value does not equal zero by incrementing the program counter with the value of the first argument. If the the program counter overflows, execution of the program is aborted. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 16 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  CALL  (0x2D)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore call(unsigned short address)\bigskip\\
+Summary &  Executes a subroutine at the address specified in the first argument. Starts by pushing the program counter to the stack. At the end of a subroutine, RET should be called to pop the program counter from the stack and return to the last execution point. If the the program counter overflows, execution of the program is aborted. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 16 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  CALLNZ  (0x42)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore callIfNotZero(unsigned short address)\bigskip\\
+Summary &  Performs a call if and only if the HL register does not contain zero. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 16 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  CALLZ  (0x43)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore callIfZero(unsigned short address)\bigskip\\
+Summary &  Performs a call if and only if the HL register contains zero. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  RET  (0x2E)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore ret()\bigskip\\
+Summary &  Pops the program counter from the stack and returns to execution after a subroutine was called. \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  PUSH  (0x2F)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore push(unsigned char address)\bigskip\\
+Summary &  Pushes a register's value to the stack. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing an 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  PUSHI  (0x30)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore pushImmediate(unsigned char value)\bigskip\\
+Summary &  Pushes a fixed value to the stack. \bigskip\\
+Parameters &
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing an 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  POP  (0x31)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore pop(unsigned char address)\bigskip\\
+Summary &  Pops a value from the stack to a register. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  BRD  (0x32)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore buttonRead(unsigned char id)\bigskip\\
+Summary &  Reads a controller and places the input in the HL register. The id as the first argument is either 0 or 1, depending on the controller that is to be read. \bigskip\\
+Parameters &
+\nextitem \textbf{id:}  The id parameter requires an unsigned short containing a 8 bit id.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  BRDS  (0x33)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore buttonReadSingle(unsigned char id, unsigned char btn)\bigskip\\
+Summary &  Reads a controller and places the input of a specific button in the HL register. If the button is pressed, 1 is placed in HL, else 0. The id as the first argument is either 0 or 1, depending on the controller that is to be read. The button as the second argument is the button that is to be read, for more info, see the controller chapter. \bigskip\\
+Parameters &
+\nextitem \textbf{id:}  The id parameter requires an unsigned short containing a 8 bit id.
+\nextitem \textbf{btn:}  The btn parameter requires an unsigned short containing a 8 bit button id.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  WAITF  (0x34)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore waitFor(unsigned char id, unsigned char btn)\bigskip\\
+Summary &  Pauses execution of a program until a specific button or buttoncombination is pressed. As long as the buttoncombination does not equal the given one, the program halts. \bigskip\\
+Parameters &
+\nextitem \textbf{id:}  The id parameter requires an unsigned short containing a 8 bit id.
+\nextitem \textbf{btn:}  The btn parameter requires an unsigned short containing a 8 bit button id.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SCRH  (0x35)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore screenHeight()\bigskip\\
+Summary &  Places the screenheight in the HL register. \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SCRW  (0x36)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore screenWidth()\bigskip\\
+Summary &  Places the screenwidth in the HL register. \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SSPR  (0x37)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore setSprite(unsigned char index, unsigned char indexonscreen)\bigskip\\
+Summary &  Places a sprite from code to VRAM. The first argument is the index in the sprite array in code. The second argument is the index in the on-screen sprite array. \bigskip\\
+Parameters &
+\nextitem \textbf{index:}  The index parameter requires an unsigned short containing a 8 bit index.
+\nextitem \textbf{indexonscreen:}  The indexonscreen parameter requires an unsigned short containing a 8 bit index.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  USPR  (0x38)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore updateSprite(unsigned char indexonscreen, unsigned char x, unsigned char y)\bigskip\\
+Summary &  Updates the position of the sprite on the screen. Positioning the sprite out of the bounds of the screen makes the sprite invisible. The second and third argument contain respectively the register with the x position and the y position. \bigskip\\
+Parameters &
+\nextitem \textbf{indexonscreen:}  The indexonscreen parameter requires an unsigned short containing a 8 bit index.
+\nextitem \textbf{x:}  The x parameter requires an unsigned short containing a 8 bit address.
+\nextitem \textbf{y:}  The y parameter requires an unsigned short containing a 8 bit address.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  USPRI  (0x4A)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore updateSpriteImmediate(unsigned char indexonscreen, unsigned char x, unsigned char y)\bigskip\\
+Summary &  Updates the position of the sprite on the screen. Positioning the sprite out of the bounds of the screen makes the sprite invisible. The second and third argument contain respectively the x position and the y position. \bigskip\\
+Parameters &
+\nextitem \textbf{indexonscreen:}  The indexonscreen parameter requires an unsigned short containing a 8 bit index.
+\nextitem \textbf{x:}  The x parameter requires an unsigned short containing a 8 bit value.
+\nextitem \textbf{y:}  The y parameter requires an unsigned short containing a 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  CSPR  (0x39)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore clearSprite(unsigned char indexonscreen)\bigskip\\
+Summary &  Removes a sprite from the onscreen sprite index. \bigskip\\
+Parameters &
+\nextitem \textbf{indexonscreen:}  The indexonscreen parameter requires an unsigned short containing a 8 bit index.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SPRX  (0x3A)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore checkSpriteX(unsigned char firstindexonscreen, unsigned char secondindexonscreen)\bigskip\\
+Summary &  Calculates the horizontal distance between two sprites. The distance (in pixels) is placed in the HL register. \bigskip\\
+Parameters &
+\nextitem \textbf{firstindexonscreen:}  The firstindexonscreen parameter requires an unsigned short containing a 8 bit index.
+\nextitem \textbf{secondindexonscreen:}  The secondindexonscreen parameter requires an unsigned short containing a 8 bit index.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SPRY  (0x3B)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore checkSpriteY(unsigned char firstindexonscreen, unsigned char secondindexonscreen)\bigskip\\
+Summary &  Calculates the vertical distance between two sprites. The distance (in pixels) is placed in the HL register. \bigskip\\
+Parameters &
+\nextitem \textbf{firstindexonscreen:}  The firstindexonscreen parameter requires an unsigned short containing a 8 bit index.
+\nextitem \textbf{secondindexonscreen:}  The secondindexonscreen parameter requires an unsigned short containing a 8 bit index.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SMAP  (0x3C)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore setMap(unsigned char index)\bigskip\\
+Summary &  Draws a map on the screen. The first argument is the index of the map in the map memory. \bigskip\\
+Parameters &
+\nextitem \textbf{index:}  The index parameter requires an unsigned short containing a 8 bit index.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  SSTR  (0x3D)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore setString(unsigned char index, unsigned char x, unsigned char y)\bigskip\\
+Summary &  Draws a string on the screen at a specified position. The first argument is the index of the string in the string memory. \bigskip\\
+Parameters &
+\nextitem \textbf{index:}  The index parameter requires an unsigned short containing a 8 bit index.
+\nextitem \textbf{x:}  The x parameter requires an unsigned short containing a 8 bit value.
+\nextitem \textbf{y:}  The y parameter requires an unsigned short containing a 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  DLY  (0x3E)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore delay(unsigned char index)\bigskip\\
+Summary &  Waits for an amount of milliseconds equal to the value of the register given in the first argument. \bigskip\\
+Parameters &
+\nextitem \textbf{index:}  The index parameter requires an unsigned short containing a 8 bit index.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  DLYI  (0x3F)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore delayImmediate(unsigned char value)\bigskip\\
+Summary &  Waits for an amount of milliseconds equal to the fixed value given in the first argument. \bigskip\\
+Parameters &
+\nextitem \textbf{value:}  The value parameter requires an unsigned short containing a 8 bit value.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  CTMR  (0x40)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore clearTimer()\bigskip\\
+Summary &  Clears the timer by resetting its value to zero. \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  RTMR  (0x41)\bigskip\\
+\hline
+\hline
+Function header & inline void ip\textunderscore readTimer()\bigskip\\
+Summary &  Places the value of the timer in the HL register. \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  DON  (0x44)\bigskip\\
+\hline
+\hline
+Function header & inline void allOn()\bigskip\\
+Summary &  Sets all pixels on the screen to the on-state. The actual framebuffer is not affected. To get back to drawing the buffer, call normalMode(). No redraw is needed to change the state. \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  DOFF  (0x45)\bigskip\\
+\hline
+\hline
+Function header & inline void allOff()\bigskip\\
+Summary &  Sets all pixels on the screen to the off-state. The actual framebuffer is not affected. To get back to drawing the buffer, call normalMode(). No redraw is needed to change the state. \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  DINV  (0x46)\bigskip\\
+\hline
+\hline
+Function header & inline void invertedMode()\bigskip\\
+Summary &  Sets the screen to drawing the framebuffer inverted. The actual framebuffer is not affected, nor the operation of its states. A cleared pixel will be lit, and a lit pixel will be cleared on screen. No redraw is needed to change the state. \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  DNRM  (0x47)\bigskip\\
+\hline
+\hline
+Function header & inline void normalMode()\bigskip\\
+Summary &  Sets the screen to drawing the framebuffer. No redraw is needed to change the state. \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  DRDRW  (0x48)\bigskip\\
+\hline
+\hline
+Function header & inline void redraw()\bigskip\\
+Summary &  Redraws the framebuffer to the screen. If allOn or allOff has been called right before a redraw, it is needed to call normalMode to draw the framebuffer. \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Mnemonic (opcode) &  DCLR  (0x49)\bigskip\\
+\hline
+\hline
+Function header & inline void clearAll()\bigskip\\
+Summary &  Clears the entire framebuffer by resetting its pixelvalues to zero. Will only be seen after a redraw. After a clearAll, the framebuffer can be written to immediately to update the screen. \bigskip\\
+Used by &
+\textbf{Interpreter.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void ip\textunderscore initInterpreter()\bigskip\\
+\hline
+\hline Summary &  Inits the interpreter by resetting all its properties. This should be called before each ip\textunderscore startInterpreter(). \bigskip\\
+Used by &
+\textbf{Interpreter.c},  \textbf{Interpreter.h},  \textbf{Main.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void ip\textunderscore startInterpreter()\bigskip\\
+\hline
+\hline Summary &  Starts the actual interpreter. Before each ip\textunderscore startInterpreter call, ip\textunderscore initInterpreter should be called unless the state of the interpreter is to be saved. To be able to execute code, a RAM module should be attached to the controller containing the code, sprites, maps and strings, carefully mapped to the memory. define DEBUGASSERT at the top to enable assert functions to be used, turned off by default. These asserts can check if a method actually does what it is supposed to do, and can help debugging of written code. \bigskip\\
+Used by &
+\textbf{Interpreter.c},  \textbf{Interpreter.h},  \textbf{Main.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore initSlaveSelect()\bigskip\\
+\hline
+\hline Summary & \bigskip\\
+Used by &
+\textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char io\textunderscore readProgramMemory(unsigned short address)\bigskip\\
+\hline
+\hline Summary &  This function reads 1 byte of data from the external program RAM chip at a given address. The program RAM contains the program code that is executed by the interpreter. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 16 bit address. The program address range is from 0x00000 to 0x0FFFF.
+\bigskip \\
+Returns &  This method returns a unsigned char containing the data that was stored at the given address. \bigskip\\
+Used by &
+\textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char io\textunderscore readDataMemory(unsigned short address)\bigskip\\
+\hline
+\hline Summary &  This function reads 1 byte of data from the external data RAM chip at a given address. The data RAM contains the sprites, maps, strings, settings and savebanks. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 16 bit address. The data address range is from 0xF0000 to 0xFFFFF.
+\bigskip \\
+Returns &  This method returns a unsigned char containing the data that was stored at the given address. \bigskip\\
+Used by &
+\textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore writeToDataMemory(unsigned short address, unsigned char data)\bigskip\\
+\hline
+\hline Summary &  This function writes 1 byte of data to the external data RAM at a given address. \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an unsigned short containing a 16 bit address. The data address range is from 0xF0000 to 0xFFFFF.
+\bigskip \\
+Used by &
+\textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char io\textunderscore readController(unsigned char controllerNumber)\bigskip\\
+\hline
+\hline Summary &  This function reads the game controller buttons state for a given controller number. \bigskip\\
+Parameters &
+\nextitem \textbf{ControllerNumber:}  This parameter contains the controller number: Controller1 = 0x00 Controller2 = 0xff
+\bigskip \\
+Returns &  The method returns a unsigned char containing the controller button state. The meaning of each bit: BIT 0: A BIT 1: B BIT 2: SELECT BIT 3: START BIT 4: DPAD UP BIT 5: DPAD DOWN BIT 6: DPAD LEFT BIT 7: DPAD RIGHT \bigskip\\
+Used by &
+\textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore initIO()\bigskip\\
+\hline
+\hline Summary &  This function sets up the IOcontrol interface. It performs the following actions: - RAM interface setup - SoftSPI interface setup and slave select initialisation - Loads the sprites into the video memory - Loads the strings into the video memory - Loads the maps into the video memory \bigskip\\
+Note &  This function has a long execution time. \bigskip\\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h},  \textbf{Main.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore allOn()\bigskip\\
+\hline
+\hline Summary &  This function lights up all the pixels of the LCD screen without overwriting the video memory. \bigskip\\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h},  \textbf{Main.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore allOff()\bigskip\\
+\hline
+\hline Summary &  This function disables all the pixels of the LCD screen without overwriting the video memory. \bigskip\\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h},  \textbf{Main.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore invert()\bigskip\\
+\hline
+\hline Summary &  This function inverts all the pixels of the LCD screen overwriting the video memory. This means that a black pixel turns white and a white pixel turns into black. \bigskip\\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore setCursor(unsigned char x , unsigned char y)\bigskip\\
+\hline
+\hline Summary &  This function sets the coordinates of the LCD display in the videobuffer. TOTO: EXPLAIN The coordinate (0,0) is located top left. \bigskip\\
+Parameters &
+\nextitem \textbf{x:}  This parameter of type unsigned char contains the x-coordinate of the cursor.
+\nextitem \textbf{y:}  This parameter of type unsigned char contains the y-coordinate of the cursor.
+\bigskip \\
+Used by &
+\textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore updateSprite(unsigned char indexVram,unsigned char x, unsigned char y)\bigskip\\
+\hline
+\hline Summary &  This function updates the position of a sprite in the video memory. \bigskip\\
+Parameters &
+\nextitem \textbf{indexVram:}  This parameter of type unsigned char container the index of the sprite in the video RAM.
+\nextitem \textbf{x:}  This parameter of type unsigned char contains the x-coordinate of the cursor.
+\nextitem \textbf{y:}  This parameter of type unsigned char contains the y-coordinate of the cursor.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore setSprite(unsigned char index, unsigned char indexVram)\bigskip\\
+\hline
+\hline Summary &  This function initialize a sprite in the video memory at a given position. \bigskip\\
+Parameters &
+\nextitem \textbf{index:}  This parameter of type unsigned char contains the index of the sprite in ROM memory.
+\nextitem \textbf{indexVram:}  This parameter of type unsigned char container the index of the sprite in the video RAM.
+\nextitem \textbf{x:}  This parameter of type unsigned char contains the x-coordinate of the cursor.
+\nextitem \textbf{y:}  This parameter of type unsigned char contains the y-coordinate of the cursor.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h},  \textbf{Main.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore clearSprite(unsigned char index)\bigskip\\
+\hline
+\hline Summary &  This function clears a sprite given by the index parameter in the video memory. \bigskip\\
+Parameters &
+\nextitem \textbf{index:}  This parameter of type unsigned char contains the index of the sprite in ROM memory.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore drawString(unsigned char index, unsigned char x, unsigned char y)\bigskip\\
+\hline
+\hline Summary &  This function draws a string given by the index parameter on the screen at a given position. \bigskip\\
+Parameters &
+\nextitem \textbf{index:}  This parameter of type unsigned char contains the index of the string in ROM memory.
+\nextitem \textbf{x:}  This parameter of type unsigned char contains the x-coordinate of the cursor.
+\nextitem \textbf{y:}  This parameter of type unsigned char contains the y-coordinate of the cursor.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore drawMap(unsigned char index)\bigskip\\
+\hline
+\hline Summary &  This function draws a map with a given index on the LCD screen. \bigskip\\
+Parameters &
+\nextitem \textbf{index:}  This parameter of type unsigned char contains the index of the map in ROM memory.
+\bigskip \\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore clearAll()\bigskip\\
+\hline
+\hline Summary &  This function clears al the elements on the LCD screen. \bigskip\\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore clearStrings()\bigskip\\
+\hline
+\hline Summary &  This function clears the string buffer. \bigskip\\
+Used by &
+\textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore clearGraphics()\bigskip\\
+\hline
+\hline Summary &  This function clears the display buffer. \bigskip\\
+Used by &
+\textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore redraw()\bigskip\\
+\hline
+\hline Summary &  This function redraws the displaybuffer to the LCD screen. \bigskip\\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h},  \textbf{Main.c}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void io\textunderscore normalMode()\bigskip\\
+\hline
+\hline Summary &  This function sets the LCD screen back to normal mode. \bigskip\\
+Used by &
+\textbf{Interpreter.c},  \textbf{IOcontrol.c},  \textbf{IOcontrol.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void rd\textunderscore initRAM()\bigskip\\
+\hline
+\hline Summary & \bigskip\\
+Used by &
+\textbf{IOcontrol.c},  \textbf{RAMdriver.c},  \textbf{RAMdriver.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void rd\textunderscore setBank(unsigned char bank)\bigskip\\
+\hline
+\hline Summary &  This function selects a memorybank. \bigskip\\
+Parameters &
+\nextitem \textbf{bank:}  The bank parameter contains the selected bank: PROGMEM = 0, DATAMEM = 1
+\bigskip \\
+Used by &
+\textbf{IOcontrol.c},  \textbf{RAMdriver.c},  \textbf{RAMdriver.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char rd\textunderscore getBank()\bigskip\\
+\hline
+\hline Summary &  Function to get the selected bank \bigskip\\
+Returns &  The method returns a unsigned char containing the selected bank \bigskip\\
+Used by &
+\textbf{RAMdriver.c},  \textbf{RAMdriver.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void rd\textunderscore writeToRAM(unsigned short address, unsigned char value)\bigskip\\
+\hline
+\hline Summary &  Function to write data (1 byte) to the external RAM in a given address \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an 16 bit address (unsigned short)
+\nextitem \textbf{value:}  Parameter value is helds the value that needs to be stored in the ROM
+\bigskip \\
+Used by &
+\textbf{IOcontrol.c},  \textbf{RAMdriver.c},  \textbf{RAMdriver.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char rd\textunderscore readFromRAM(unsigned short address)\bigskip\\
+\hline
+\hline Summary &  Function the read data (1 byte) from a given address \bigskip\\
+Parameters &
+\nextitem \textbf{address:}  The address parameter requires an 16 bit address (unsigned short).
+\bigskip \\
+Returns &  The method returns a unsigned char containing the data in the address \bigskip\\
+Used by &
+\textbf{RAMdriver.c},  \textbf{RAMdriver.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void ss\textunderscore initSPI()\bigskip\\
+\hline
+\hline Summary &  Initialisation of the software SPI pins. Sets all the output pins low. Mind the tris register, this has to be set manually! The standard in this case is trisa = 0b00000100 \bigskip\\
+Used by &
+\textbf{IOcontrol.c},  \textbf{SoftSPIdriver.c},  \textbf{SoftSPIdriver.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void ss\textunderscore sendByte(unsigned char data)\bigskip\\
+\hline
+\hline Summary &  Sends a byte over SPI to the selected slave. \bigskip\\
+Parameters &
+\nextitem \textbf{data:}  The data argument is an unsigned char, the byte we want to send.
+\bigskip \\
+Used by &
+\textbf{IOcontrol.c},  \textbf{SoftSPIdriver.c},  \textbf{SoftSPIdriver.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char ss\textunderscore readByte()\bigskip\\
+\hline
+\hline Summary &  Reads a byte over SPI from the selected slave. \bigskip\\
+Returns &  The method returns an unsigned char, the data received over SPI. \bigskip\\
+Used by &
+\textbf{SoftSPIdriver.c},  \textbf{SoftSPIdriver.h}\bigskip \\
+\hline
+\end{tabularx}
+\end{table}
+
+
+\section{Graphics controller}
+
+\subsection{CommandControl.h}
+\par This file provides the functions needed for the hardware SPI.
+It provides
+	- cc\textunderscore initCommandControl()
+	- cc\textunderscore spiCallback()
+	- cc\textunderscore control()
+It requires
+	- eventhandler()
+	- hs\textunderscore initSPI()
+	- hs\textunderscore readByte()
+	- gc\textunderscore loadSprite(unsigned char refNumber, unsigned char *data)
+	- gc\textunderscore setSprite(unsigned char refNumber, unsigned char listNumber, unsigned char xpos, unsigned char ypos)
+	- gc\textunderscore clearSprite(unsigned char listNumber)
+	- gc\textunderscore updateSprite(unsigned char listNumber, unsigned char xpos, unsigned char ypos)
+	- gc\textunderscore loadMap(unsigned char mapNumber)
+	- gc\textunderscore drawMap(unsigned char mapNumber, unsigned char xoffset, unsigned char yoffset)
+	- gc\textunderscore loadString(unsigned char stringNumber)
+	- gc\textunderscore drawString(unsigned char xpos, unsigned char ypos, unsigned char stringNumber)
+	- gc\textunderscore redraw()
+	- gc\textunderscore allOn()
+	- gc\textunderscore allOff()
+	- gc\textunderscore invertedMode()
+	- gc\textunderscore normalMode()
+	- gc\textunderscore clearAll()
+	- gc\textunderscore clearGraphics()
+	- gc\textunderscore clearStrings()
+
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void cc\textunderscore initCommandControl()\bigskip\\
+\hline
+\hline Summary & 	This initializes the command control, calls the needed methods to set some registers \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{CommandControl.h},  \textbf{Graphics.c}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void cc\textunderscore spiCallback()\bigskip\\
+\hline
+\hline Summary & 	Contains the code that must be executed on SPI interrupt This interrupt is triggered on receiving a full byte \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{CommandControl.h},  \textbf{Eventhandler.c}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void cc\textunderscore control()\bigskip\\
+\hline
+\hline Summary & 	This method does all the command handling It checks the receive buffer and calls the correct middleware methods \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{CommandControl.h},  \textbf{Graphics.c}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+
+\subsection{GraphicsControl.h}
+\par This file provides the functions needed for the hardware SPI.
+It provides
+	- gc\textunderscore drawPixel(unsigned char xpos, unsigned char ypos, unsigned char color)
+	- gc\textunderscore setPixel(unsigned char xpos, unsigned char ypos)
+	- gc\textunderscore clearPixel(unsigned char xpos, unsigned char ypos)
+	- gc\textunderscore drawByte(unsigned char xpos, unsigned char ypos, unsigned char data)
+	- gc\textunderscore testbit(unsigned char data, unsigned char number)
+	- gc\textunderscore loadSprite(unsigned char refNumber, unsigned char *data)
+	- gc\textunderscore setSprite(unsigned char refNumber, unsigned char listNumber, unsigned char xpos, unsigned char ypos)
+	- gc\textunderscore clearSprite(unsigned char listNumber)
+	- gc\textunderscore updateSprite(unsigned char listNumber, unsigned char xpos, unsigned char ypos)
+	- gc\textunderscore loadMap(unsigned char mapNumber)
+	- gc\textunderscore drawMap(unsigned char mapNumber, unsigned char xoffset, unsigned char yoffset)
+	- gc\textunderscore loadString(unsigned char stringNumber)
+	- gc\textunderscore drawString(unsigned char xpos, unsigned char ypos, unsigned char stringNumber)
+	- gc\textunderscore initLCD()
+	- gc\textunderscore resetCursor()
+	- gc\textunderscore dataMode()
+	- gc\textunderscore commandMode()
+	- gc\textunderscore sendCommand()
+	- gc\textunderscore sendData()
+	- gc\textunderscore redraw()
+	- gc\textunderscore allOn()
+	- gc\textunderscore allOff()
+	- gc\textunderscore invertedMode()
+	- gc\textunderscore normalMode()
+	- gc\textunderscore clearAll()
+	- gc\textunderscore clearGraphics()
+	- gc\textunderscore clearStrings()
+It requires
+	- hs\textunderscore readByte()
+	- hs\textunderscore dataAvailable()
+	- ss\textunderscore initSPI()
+	- ss\textunderscore sendByte(unsigned char data)
+
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore drawPixel(unsigned char xpos, unsigned char ypos, unsigned char color)\bigskip\\
+\hline
+\hline Summary & 	Draws a pixel with a specified color at a specified location on the screen \bigskip\\
+Parameters &
+\nextitem \textbf{xpos:}  Unsigned char denoting the x position on the screen
+\nextitem \textbf{ypos:}  Unsigned char denoting the y position on the screen
+\nextitem \textbf{color:}  Unsigned char denoting the color of the pixel
+\bigskip \\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore setPixel(unsigned char xpos, unsigned char ypos)\bigskip\\
+\hline
+\hline Summary & 	Draws a pixel with color = 1 at a specified location on the screen \bigskip\\
+Parameters &
+\nextitem \textbf{xpos:}  Unsigned char denoting the x position on the screen
+\nextitem \textbf{ypos:}  Unsigned char denoting the y position on the screen
+\bigskip \\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore clearPixel(unsigned char xpos, unsigned char ypos)\bigskip\\
+\hline
+\hline Summary & 	Draws a pixel with color = 0 at a specified location on the screen \bigskip\\
+Parameters &
+\nextitem \textbf{xpos:}  Unsigned char denoting the x position on the screen
+\nextitem \textbf{ypos:}  Unsigned char denoting the y position on the screen
+\bigskip \\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore drawByte(unsigned char xpos, unsigned char ypos, unsigned char data)\bigskip\\
+\hline
+\hline Summary & 	Draws 8 subsequent pixels starting at a specified location on the screen The folowing pixels are each drawn below the previous drawn pixel (ie. advancing in y position) If the end of the screen is reached, the rest of the pixels is not drawn \bigskip\\
+Parameters &
+\nextitem \textbf{xpos:}  Unsigned char denoting the starting x position on the screen
+\nextitem \textbf{ypos:}  Unsigned char denoting the starting y position on the screen
+\nextitem \textbf{data:}  Unsigned char containing the pixel data, is used lsb first
+\bigskip \\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char gc\textunderscore testbit(unsigned char data, unsigned char number)\bigskip\\
+\hline
+\hline Summary & 	Test the number bit of a certain byte data \bigskip\\
+Parameters &
+\nextitem \textbf{data:}  An unsigned char denoting the data byte we want a to test a bit from
+\nextitem \textbf{number:}  The nth bit from the data byte we want to test, with nth being equal to number
+\bigskip \\
+Returns &  Unsigned char, in fact return is restricted to 0 or 1 \bigskip\\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore loadSprite(unsigned char refNumber, unsigned char *data)\bigskip\\
+\hline
+\hline Summary & 	This method gets the pixel data for a sprite from the SPI receive buffer and puts it in the correct memory slot. The memory slot is given by the spritenumber. \bigskip\\
+Parameters &
+\nextitem \textbf{refNumber:}  The number of the sprite in memory.
+\nextitem \textbf{data:}  Takes a pointer to the start of the pixel data for the sprite, by definition a sprite has 8 bytes of pixeldata, they are found subsequent at the pointer location.
+\bigskip \\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore setSprite(unsigned char refNumber, unsigned char listNumber, unsigned char xpos, unsigned char ypos)\bigskip\\
+\hline
+\hline Summary & 	Enables one to draw a sprite on the screen by taking a reference from the sprite in memory and mapping it to a sprite on the screen. It can be set at any location on the screen, if the sprite position is out of screen boundries nothing will be drawn. Correct sprite numbers are from 1 upto 32, which means a maximum of 32 sprites can be drawn on the screen at once. One sprite in memory can have multiple entries in the list with sprites to draw on the screen. \bigskip\\
+Parameters &
+\nextitem \textbf{refNumber:}  This is the number of the sprite in memory. This is also the reference to the actual sprite pixel data.
+\nextitem \textbf{listNumber:}  This is the number of the sprite on the screen. Can be different from the number of the sprite in memory.
+\nextitem \textbf{xpos:}  An unsigned char denoting the X postion on the screen. This means the left edge.
+\nextitem \textbf{ypos:}  An unsigned char denoting the Y postion on the screen. This means the top edge.
+\bigskip \\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore clearSprite(unsigned char listNumber)\bigskip\\
+\hline
+\hline Summary & 	Removes a sprite from the list with sprites to be drawn on the screen. \bigskip\\
+Parameters &
+\nextitem \textbf{listNumber:}  The number of the sprite on the screen to be removed.
+\bigskip \\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore updateSprite(unsigned char listNumber, unsigned char xpos, unsigned char ypos)\bigskip\\
+\hline
+\hline Summary & 	Changes a sprite to a new postion on the screen. \bigskip\\
+Parameters &
+\nextitem \textbf{listNumber:}  The number of the sprite on the screen from which the position will be changed.
+\nextitem \textbf{xpos:}  An unsigned char denoting the new X postion on the screen. This means the left edge.
+\nextitem \textbf{ypos:}  An unsigned char denoting the new Y postion on the screen. This means the top edge.
+\bigskip \\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore loadMap(unsigned char mapNumber)\bigskip\\
+\hline
+\hline Summary & 	Method to receive the data for a map. A map exist of tiles who are in fact sprites. A map is 16 tiles wide and 8 tiles high, which correspond to 128 x 64 pixels. A map is tiled from left to right and then from top to bottom. This method expects that 128 bytes with a reference to a sprite are send over SPI, after entering the method. \bigskip\\
+Parameters &
+\nextitem \textbf{mapNumber:}  Denotes where to write the map data on receiving. The possible maps are from 0 upto 3.
+\bigskip \\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore drawMap(unsigned char mapNumber, unsigned char xoffset, unsigned char yoffset) // offset in pixels\bigskip\\
+\hline
+\hline Summary & 	This method send the visible part of the map to the VRAM. Because the screen is only 84 x 48 pixels and the map is 128 x 64 pixels one needs to specify the visible part. The visible part is selected with the X and Y offsets. \bigskip\\
+Parameters &
+\nextitem \textbf{mapNumber:}  Tells the method from which map the part should be draw.
+\nextitem \textbf{xoffset:}  An unsigned char denoting the starting X postion on the map. This means the left edge of the screen.
+\nextitem \textbf{yoffset:}  An unsigned char denoting the starting Y postion on the map. This means the top edge of the screen.
+\bigskip \\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore loadString(unsigned char stringNumber)\bigskip\\
+\hline
+\hline Summary & 	This method loads a string into the string memory. The stringnumber is the reference for future usage of the string. A string ends with a NULL character or when the string memory is full, which is 254 bytes. \bigskip\\
+Parameters &
+\nextitem \textbf{stringNumber:}  The stringnumber reference.
+\bigskip \\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore drawString(unsigned char xpos, unsigned char ypos, unsigned char stringNumber)\bigskip\\
+\hline
+\hline Summary & 	This method draws a string onto the screen. It does so by writing the TRAM, so text can't conflict with graphics. \bigskip\\
+Parameters &
+\nextitem \textbf{xpos:}  An unsigned char denoting the X postion on the screen. The text starts at this position an continues to the right.
+\nextitem \textbf{ypos:}  An unsigned char denoting the Y postion on the screen. This means the top line of the text.
+\nextitem \textbf{stringNumber:}  Specifies the string from memory to be draw on the screen.
+\bigskip \\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore initLCD()\bigskip\\
+\hline
+\hline Summary & 	Initializes the LCD module. This means sending commands to the LCD for setting backplane voltage, contrast ... It also initializes the software SPI internally. \bigskip\\
+Used by &
+ \textbf{Graphics.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore resetCursor()\bigskip\\
+\hline
+\hline Summary & 	Sets X and Y address of VRAM to zero in the LCD module. \bigskip\\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore dataMode()\bigskip\\
+\hline
+\hline Summary & 	Selects the datamode of the LCD, in which pixeldata can be sent to it. \bigskip\\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore commandMode()\bigskip\\
+\hline
+\hline Summary & 	Selects the commandmode of the LCD, in which commands can be sent to it. \bigskip\\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore sendCommand(unsigned char command)\bigskip\\
+\hline
+\hline Summary & 	Sends a commandbyte to the lcd. \bigskip\\
+Parameters &
+\nextitem \textbf{command:}  An unsigned char denoting the command byte to send.
+\bigskip \\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore sendData(unsigned char data)\bigskip\\
+\hline
+\hline Summary & 	Sends a byte containing data for 8 pixels. \bigskip\\
+Parameters &
+\nextitem \textbf{data:}  An unsigned char denoting the pixel data to send.
+\bigskip \\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore redraw()\bigskip\\
+\hline
+\hline Summary & 	Sends the whole VRAM and TRAM from the controller to the LCD module. \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore allOn()\bigskip\\
+\hline
+\hline Summary & 	Sends a command to turn on all the pixels of the LCD. Can be used to test the LCD for defects. \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore allOff()\bigskip\\
+\hline
+\hline Summary & 	Sends a command to turn off all the pixels of the LCD. \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore invertedMode()\bigskip\\
+\hline
+\hline Summary & 	Sends a command to enable the inverted pixelmode of the LCD. This inverts each and every pixel on the screen. \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore normalMode()\bigskip\\
+\hline
+\hline Summary & 	Sends a command to disable the inverted pixelmode. \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore clearAll()\bigskip\\
+\hline
+\hline Summary & 	Clears both the VRAM and TRAM by filling them with zeros. \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore clearGraphics()\bigskip\\
+\hline
+\hline Summary & 	Clears the VRAM by filling it with zeros. \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore clearStrings()\bigskip\\
+\hline
+\hline Summary & 	Clears the TRAM by filling it with zeros. \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{GraphicsControl.c},  \textbf{GraphicsControl.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+
+\subsection{HardSPIdriver.h}
+\par This file provides the functions needed for the hardware SPI.
+It provides
+	- hs\textunderscore initSPI()
+	- hs\textunderscore sendByte(unsigned char data)
+	- hs\textunderscore readByte()
+	- hs\textunderscore dataAvailable()
+	- hs\textunderscore reset()
+It requires
+	- none
+
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void hs\textunderscore initSPI()\bigskip\\
+\hline
+\hline Summary &  Initialisation of the hardware SPI pins. Sets all the registers needed for a correct working SPI peripheral Also sets the registers needed for interrupt callback \bigskip\\
+Used by &
+ \textbf{CommandControl.c},  \textbf{HardSPIdriver.c},  \textbf{HardSPIdriver.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & bool hs\textunderscore sendByte(unsigned char data)\bigskip\\
+\hline
+\hline Summary &  Sends a byte over SPI to the selected slave. \bigskip\\
+Parameters &
+\nextitem \textbf{data:}  The data argument is an unsigned char, the byte we want to send.
+\bigskip \\
+Returns &  The method returns a boolean, this denotes the if the operation was succesfull. \bigskip\\
+Used by &
+ \textbf{HardSPIdriver.c},  \textbf{HardSPIdriver.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char hs\textunderscore readByte()\bigskip\\
+\hline
+\hline Summary &  Reads a byte over SPI from the selected slave. \bigskip\\
+Returns &  The data argument is an unsigned char, the byte we want to send. \bigskip\\
+Used by &
+ \textbf{HardSPIdriver.c},  \textbf{HardSPIdriver.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & bool hs\textunderscore dataAvailable()\bigskip\\
+\hline
+\hline Summary &  Check whether there is new data available since the last read or write operation. \bigskip\\
+Returns &  Returns a boolean, denoting the availability of new data. \bigskip\\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{HardSPIdriver.c},  \textbf{HardSPIdriver.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void hs\textunderscore reset()\bigskip\\
+\hline
+\hline Summary &  Method for resetting the SPI module after a collision or overflow has happened. Does not clear the buffer! \bigskip\\
+Used by &
+ \textbf{HardSPIdriver.c},  \textbf{HardSPIdriver.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+
+\subsection{SoftSPIdriver.h}
+\par This file provides the functions needed for the software SPI.
+It provides
+	- ss\textunderscore initSPI()
+	- ss\textunderscore sendByte(unsigned char data)
+	- ss\textunderscore readByte()
+It requires
+	- none
+
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void ss\textunderscore initSPI()\bigskip\\
+\hline
+\hline Summary &  Initialisation of the software SPI pins. Sets all the output pins low. Mind the tris register, this has to be set manually! The standard in this case is trisa = 0b00000100 \bigskip\\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{SoftSPIdriver.c},  \textbf{SoftSPIdriver.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void ss\textunderscore sendByte(unsigned char data)\bigskip\\
+\hline
+\hline Summary &  Sends a byte over SPI to the selected slave. \bigskip\\
+Parameters &
+\nextitem \textbf{data:}  The data argument is an unsigned char, the byte we want to send.
+\bigskip \\
+Used by &
+ \textbf{GraphicsControl.c},  \textbf{SoftSPIdriver.c},  \textbf{SoftSPIdriver.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char ss\textunderscore readByte()\bigskip\\
+\hline
+\hline Summary &  Reads a byte over SPI from the selected slave. \bigskip\\
+Returns &  The method returns an unsigned char, the data received over SPI. \bigskip\\
+Used by &
+ \textbf{SoftSPIdriver.c},  \textbf{SoftSPIdriver.h}\bigskip \\
+\hline
+ \end{tabularx}
+ \end{table}

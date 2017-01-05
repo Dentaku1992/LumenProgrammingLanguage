@@ -1,0 +1,339 @@
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void cc\textunderscore initCommandControl();\bigskip\\ 
+\hline 
+\hline Summary & 	This initializes the command control, calls the needed methods to set some registers \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void cc\textunderscore spiCallback();\bigskip\\ 
+\hline 
+\hline Summary & 	Contains the code that must be executed on SPI interrupt This interrupt is triggered on receiving a full byte \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void cc\textunderscore control();\bigskip\\ 
+\hline 
+\hline Summary & 	This method does all the command handling It checks the receive buffer and calls the correct middleware methods \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore drawPixel(unsigned char xpos, unsigned char ypos, unsigned char color);\bigskip\\ 
+\hline 
+\hline Summary & 	Draws a pixel with a specified color at a specified location on the screen \bigskip\\ 
+Parameters & 
+\nextitem \textbf{xpos:}  Unsigned char denoting the x position on the screen 
+\nextitem \textbf{ypos:}  Unsigned char denoting the y position on the screen 
+\nextitem \textbf{color:}  Unsigned char denoting the color of the pixel 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore setPixel(unsigned char xpos, unsigned char ypos);\bigskip\\ 
+\hline 
+\hline Summary & 	Draws a pixel with color = 1 at a specified location on the screen \bigskip\\ 
+Parameters & 
+\nextitem \textbf{xpos:}  Unsigned char denoting the x position on the screen 
+\nextitem \textbf{ypos:}  Unsigned char denoting the y position on the screen 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore clearPixel(unsigned char xpos, unsigned char ypos);\bigskip\\ 
+\hline 
+\hline Summary & 	Draws a pixel with color = 0 at a specified location on the screen \bigskip\\ 
+Parameters & 
+\nextitem \textbf{xpos:}  Unsigned char denoting the x position on the screen 
+\nextitem \textbf{ypos:}  Unsigned char denoting the y position on the screen 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore drawByte(unsigned char xpos, unsigned char ypos, unsigned char data);\bigskip\\ 
+\hline 
+\hline Summary & 	Draws 8 subsequent pixels starting at a specified location on the screen The folowing pixels are each drawn below the previous drawn pixel (ie. advancing in y position) If the end of the screen is reached, the rest of the pixels is not drawn \bigskip\\ 
+Parameters & 
+\nextitem \textbf{xpos:}  Unsigned char denoting the starting x position on the screen 
+\nextitem \textbf{ypos:}  Unsigned char denoting the starting y position on the screen 
+\nextitem \textbf{data:}  Unsigned char containing the pixel data, is used lsb first 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char gc\textunderscore testbit(unsigned char data, unsigned char number);\bigskip\\ 
+\hline 
+\hline Summary & 	Test the number bit of a certain byte data \bigskip\\ 
+Parameters & 
+\nextitem \textbf{data:}  An unsigned char denoting the data byte we want a to test a bit from 
+\nextitem \textbf{number:}  The nth bit from the data byte we want to test, with nth being equal to number 
+\bigskip \\ 
+Returns &  Unsigned char, in fact return is restricted to 0 or 1 \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore loadSprite(unsigned char refNumber, unsigned char *data);\bigskip\\ 
+\hline 
+\hline Summary & 	This method gets the pixel data for a sprite from the SPI receive buffer and puts it in the correct memory slot. The memory slot is given by the spritenumber. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{refNumber:}  The number of the sprite in memory. 
+\nextitem \textbf{data:}  Takes a pointer to the start of the pixel data for the sprite, by definition a sprite has 8 bytes of pixeldata, they are found subsequent at the pointer location. 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore setSprite(unsigned char refNumber, unsigned char listNumber, unsigned char xpos, unsigned char ypos);\bigskip\\ 
+\hline 
+\hline Summary & 	Enables one to draw a sprite on the screen by taking a reference from the sprite in memory and mapping it to a sprite on the screen. It can be set at any location on the screen, if the sprite position is out of screen boundries nothing will be drawn. Correct sprite numbers are from 1 upto 32, which means a maximum of 32 sprites can be drawn on the screen at once. One sprite in memory can have multiple entries in the list with sprites to draw on the screen. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{refNumber:}  This is the number of the sprite in memory. This is also the reference to the actual sprite pixel data. 
+\nextitem \textbf{listNumber:}  This is the number of the sprite on the screen. Can be different from the number of the sprite in memory. 
+\nextitem \textbf{xpos:}  An unsigned char denoting the X postion on the screen. This means the left edge. 
+\nextitem \textbf{ypos:}  An unsigned char denoting the Y postion on the screen. This means the top edge. 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore clearSprite(unsigned char listNumber);\bigskip\\ 
+\hline 
+\hline Summary & 	Removes a sprite from the list with sprites to be drawn on the screen. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{listNumber:}  The number of the sprite on the screen to be removed. 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore updateSprite(unsigned char listNumber, unsigned char xpos, unsigned char ypos);\bigskip\\ 
+\hline 
+\hline Summary & 	Changes a sprite to a new postion on the screen. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{listNumber:}  The number of the sprite on the screen from which the position will be changed. 
+\nextitem \textbf{xpos:}  An unsigned char denoting the new X postion on the screen. This means the left edge. 
+\nextitem \textbf{ypos:}  An unsigned char denoting the new Y postion on the screen. This means the top edge. 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore loadMap(unsigned char mapNumber);\bigskip\\ 
+\hline 
+\hline Summary & 	Method to receive the data for a map. A map exist of tiles who are in fact sprites. A map is 16 tiles wide and 8 tiles high, which correspond to 128 x 64 pixels. A map is tiled from left to right and then from top to bottom. This method expects that 128 bytes with a reference to a sprite are send over SPI, after entering the method. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{mapNumber:}  Denotes where to write the map data on receiving. The possible maps are from 0 upto 3. 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore drawMap(unsigned char mapNumber, unsigned char xoffset, unsigned char yoffset); // offset in pixels\bigskip\\ 
+\hline 
+\hline Summary & 	This method send the visible part of the map to the VRAM. Because the screen is only 84 x 48 pixels and the map is 128 x 64 pixels one needs to specify the visible part. The visible part is selected with the X and Y offsets. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{mapNumber:}  Tells the method from which map the part should be draw. 
+\nextitem \textbf{xoffset:}  An unsigned char denoting the starting X postion on the map. This means the left edge of the screen. 
+\nextitem \textbf{yoffset:}  An unsigned char denoting the starting Y postion on the map. This means the top edge of the screen. 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore loadString(unsigned char stringNumber);\bigskip\\ 
+\hline 
+\hline Summary & 	This method loads a string into the string memory. The stringnumber is the reference for future usage of the string. A string ends with a NULL character or when the string memory is full, which is 254 bytes. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{stringNumber:}  The stringnumber reference. 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore drawString(unsigned char xpos, unsigned char ypos, unsigned char stringNumber);\bigskip\\ 
+\hline 
+\hline Summary & 	This method draws a string onto the screen. It does so by writing the TRAM, so text can't conflict with graphics. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{xpos:}  An unsigned char denoting the X postion on the screen. The text starts at this position an continues to the right. 
+\nextitem \textbf{ypos:}  An unsigned char denoting the Y postion on the screen. This means the top line of the text. 
+\nextitem \textbf{stringNumber:}  Specifies the string from memory to be draw on the screen. 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore initLCD();\bigskip\\ 
+\hline 
+\hline Summary & 	Initializes the LCD module. This means sending commands to the LCD for setting backplane voltage, contrast ... It also initializes the software SPI internally. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore resetCursor();\bigskip\\ 
+\hline 
+\hline Summary & 	Sets X and Y address of VRAM to zero in the LCD module. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore dataMode();\bigskip\\ 
+\hline 
+\hline Summary & 	Selects the datamode of the LCD, in which pixeldata can be sent to it. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore commandMode();\bigskip\\ 
+\hline 
+\hline Summary & 	Selects the commandmode of the LCD, in which commands can be sent to it. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore sendCommand(unsigned char command);\bigskip\\ 
+\hline 
+\hline Summary & 	Sends a commandbyte to the lcd. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{command:}  An unsigned char denoting the command byte to send. 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore sendData(unsigned char data);\bigskip\\ 
+\hline 
+\hline Summary & 	Sends a byte containing data for 8 pixels. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{data:}  An unsigned char denoting the pixel data to send. 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore redraw();\bigskip\\ 
+\hline 
+\hline Summary & 	Sends the whole VRAM and TRAM from the controller to the LCD module. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore allOn();\bigskip\\ 
+\hline 
+\hline Summary & 	Sends a command to turn on all the pixels of the LCD. Can be used to test the LCD for defects. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore allOff();\bigskip\\ 
+\hline 
+\hline Summary & 	Sends a command to turn off all the pixels of the LCD. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore invertedMode();\bigskip\\ 
+\hline 
+\hline Summary & 	Sends a command to enable the inverted pixelmode of the LCD. This inverts each and every pixel on the screen. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore normalMode();\bigskip\\ 
+\hline 
+\hline Summary & 	Sends a command to disable the inverted pixelmode. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore clearAll();\bigskip\\ 
+\hline 
+\hline Summary & 	Clears both the VRAM and TRAM by filling them with zeros. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore clearGraphics();\bigskip\\ 
+\hline 
+\hline Summary & 	Clears the VRAM by filling it with zeros. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void gc\textunderscore clearStrings();\bigskip\\ 
+\hline 
+\hline Summary & 	Clears the TRAM by filling it with zeros. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void hs\textunderscore initSPI();\bigskip\\ 
+\hline 
+\hline Summary &  Initialisation of the hardware SPI pins. Sets all the registers needed for a correct working SPI peripheral Also sets the registers needed for interrupt callback \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & bool hs\textunderscore sendByte(unsigned char data);\bigskip\\ 
+\hline 
+\hline Summary &  Sends a byte over SPI to the selected slave. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{data:}  The data argument is an unsigned char, the byte we want to send. 
+\bigskip \\ 
+Returns &  The method returns a boolean, this denotes the if the operation was succesfull. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char hs\textunderscore readByte();\bigskip\\ 
+\hline 
+\hline Summary &  Reads a byte over SPI from the selected slave. \bigskip\\ 
+Returns &  The data argument is an unsigned char, the byte we want to send. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & bool hs\textunderscore dataAvailable();\bigskip\\ 
+\hline 
+\hline Summary &  Check whether there is new data available since the last read or write operation. \bigskip\\ 
+Returns &  Returns a boolean, denoting the availability of new data. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void hs\textunderscore reset();\bigskip\\ 
+\hline 
+\hline Summary &  Method for resetting the SPI module after a collision or overflow has happened. Does not clear the buffer! \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void ss\textunderscore initSPI();\bigskip\\ 
+\hline 
+\hline Summary &  Initialisation of the software SPI pins. Sets all the output pins low. Mind the tris register, this has to be set manually! The standard in this case is trisa = 0b00000100; \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & void ss\textunderscore sendByte(unsigned char data);\bigskip\\ 
+\hline 
+\hline Summary &  Sends a byte over SPI to the selected slave. \bigskip\\ 
+Parameters & 
+\nextitem \textbf{data:}  The data argument is an unsigned char, the byte we want to send. 
+\bigskip \\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 
+\begin{table}[H]
+\begin {tabularx} {\textwidth} {l|X} Function header & unsigned char ss\textunderscore readByte();\bigskip\\ 
+\hline 
+\hline Summary &  Reads a byte over SPI from the selected slave. \bigskip\\ 
+Returns &  The method returns an unsigned char, the data received over SPI. \bigskip\\ 
+\hline 
+ \end{tabularx} 
+ \end{table} 

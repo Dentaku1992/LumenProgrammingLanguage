@@ -1,0 +1,25 @@
+\chapter{Instruction Set}
+\label{cha:InstructionSet}
+
+Each LUMEN instruction is a 8-bit byte divided into an OPCODE which specifies the instruction
+type and one or more operands which further specify the operation of the instruction. These operands
+are also 8-bit. The LUMEN instruction summary in described in this chapter lists the instructions recognized by the 
+LUMEN compiler. The instructions set can be grouped in 7 basic categories:
+
+	\begin{itemize}
+		  \item Variable manipulation
+		  \item Mathematical operations
+		  \item Logic manipulation
+		  \item Calls and Jumps
+		  \item Stack manipulation
+		  \item Graphics
+		  \item Sounds
+	\end{itemize}
+
+\noindent All instructions are executed in one single instruction cycle, unless a conditional test is true
+or the program counter is changed as a result of an instruction. In these cases the execution takes two instruction
+cycles with the second cycle as an NOP. One instruction cycle consist out of XXX clock cycles.
+
+\newpage
+\input{InstructionSet/Table}
+\input{InstructionSet/Sections}

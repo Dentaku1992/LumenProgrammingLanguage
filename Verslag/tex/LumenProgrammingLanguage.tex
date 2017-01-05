@@ -1,0 +1,109 @@
+\documentclass[master=elt,masteroption=eg,english,oneside] {kulemt}
+\setup{title={LUMEN programming language and game console},
+  author={Andries Gert-Jan \and Dejager Xavier \and Steen Nick},
+  promotor={J.J. Vandenbussche},
+  assessor={},
+  assistant={}}
+
+\usepackage{textgreek}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{biblatex}
+\usepackage{array,booktabs,enumitem}
+\usepackage{charter}
+\RequirePackage{listings}
+\setlength{\parindent}{0pt}
+
+\newcolumntype{P}[1]{>{\endgraf\vspace*{-\baselineskip}}p{#1}}
+\newcommand{\nextitem}{\par\hspace*{\labelsep}\hspace*{\labelsep}}
+\ProvidesPackage{lumen} 
+\lstdefinelanguage[lumen]{Assembler}{
+  alsoletter={.\$},
+  morestring=[b]",
+  morestring=[b]',
+  morecomment=[l]\#,
+  morekeywords={[1]LD,CPY,ST,STI,LR,EQU,GT,LT,ADD,ADDI,SUB,SUBI,MUL,MULI,DIV,DIVI,INC,DEC,PWR,PWRI,SQRT,LOG,LOGI,RAND,RANDI,NOP,AND,ANDI,OR,ORI,XOR,XORI,NOT,STB,CLB,JMP,JMPR,JMPZ,JMPRZ,JMPNZ,JMPRNZ,CALL,RET,PUSH,PUSHI,POP,BRD,BRDS,TRD,WAITF,SCRH,SCRW,ASPR,DSPR,RSPR,CKSPR,DMAP,DSTR,WAIT,WAITI,CTMR,RTMR},
+  morekeywords={[2].byte,+},
+  morekeywords={[3]\$R0,\$R1,\$R2,\$R3,\$R4,\$R5,\$R6,\$R7,\$R8,\$9,\$R10,\$R11,\$R12,\$R13,\$R14,\$R15,\$HL},
+}[strings,comments,keywords]
+ \definecolor{CommentGreen}{rgb}{0,.6,0}
+ \lstset{
+   language=[lumen]Assembler,
+   escapechar=+, 
+   keepspaces,  
+   basicstyle=\footnotesize\ttfamily,
+   commentstyle=\color{CommentGreen},
+   stringstyle=\color{cyan},
+   showstringspaces=false,
+   keywordstyle=[1]\color{blue},    
+   keywordstyle=[2]\color{magenta}, 
+   keywordstyle=[3]\color{red},     
+   breaklines= true,
+   showspaces = false,
+   columns=fullflexible
+ }
+ 
+ \setlength{\fboxsep}{0pt}
+ \setlength{\fboxrule}{0pt}
+
+\begin{document}
+
+  \begin{preface}
+    LUMEN stands for Language For Ultraportable And Microcontroller-ased Embedded eNvironments. It is a ultra lightweight programming language intended to design arcade games on embedded devices.
+    
+    \noindent The core features of LUMEN are:
+    
+  		\begin{itemize}
+  		  \item Easy to understand
+  		  \item Small memory footprint on any platform
+  		  \item minimal number of keywords
+  		\end{itemize}
+
+  \end{preface}
+
+  \tableofcontents*
+
+  \begin{abstract}
+
+    \par The idea of the project is to build a basic game console. This console interprets the LUMEN programming language which is also part of the project. The project is divided in two seperate parts. \bigskip
+
+    \par \noindent The first part is developing an interpreted programming language, with an accompagnying IDE and compiler with sprite editor and map designer. The tools will be considered as already existing, since these do not contribute to embedded programming. The entire flow of the program, using inputs and providing output, is written in the interpreted code. The preprogrammed code in the PIC is merely a framework to enable the interpreter to execute the full range of functions available to the programmer. \bigskip
+
+    \par \noindent In the second part, a game console is constructed. This console is built upon a PIC 18F4620 microcontroller which runs an interpreter. A monochrome display is provided to give the game graphical output. Inputs are possible by two seperate handheld controllers and thus multiplayer with up to 2 players is supported. The Games are stored in replaceable game ROM cards to give a maximum flexibility.
+
+    \par \noindent The goal of the project is to make a new programming language and gaming console with the following features:
+
+    \begin{itemize}
+    	\item An interpreter running on the PIC18F4620
+    	\item Graphical output to a monochrome display
+    	\item Input from two handheld controllers
+    	\item Multiplayer support with a maximum of two controllers
+    	\item Replaceable ROM game cards (cartridge system)
+    \end{itemize}
+  \end{abstract}
+
+
+  \listoffigures
+  \listoftables
+
+  \include{AbbrSymbs/AbbrSymbs}
+
+  \mainmatter
+
+  \include{Intro/Intro}
+  \include{GameConsole/GameConsole}
+  \include{GameController/GameController}
+  \include{Registers/RegisterOrganization}
+  \include{InstructionSet/InstructionSet}
+  \include{Interpreter/Interpreter}
+  \include{Comments/table}
+
+  \include{VGA/VGA}
+ 
+  \backmatter
+\end{document}

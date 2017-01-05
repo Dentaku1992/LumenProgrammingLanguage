@@ -1,0 +1,65 @@
+\chapter{The graphics control}
+\label{cha:GraphicsControl}
+
+\section{Overview}
+	\par The graphics control is located entirely in a separate microcontroller. Its tasks in a nutshell are to drive the actual LCD display and to provide a simple way of using graphics in a game. To do so it provides a set of commands to the programmer that can be used to initialize, draw, move and remove spites on the screen. It also has support for text on screen and for maps that can be scrolled over the screen.
+
+\section{The LCD display}
+	\par The LCD display used in this setup has a resolution of 84x48 pixels. It has a PCD8544 chipset and is interfaced with SPI. The chipset does all the timing and scanning of the LCD. All we need to provide is a correct initialisation, fill the VRAM and send valid commands. This is where graphics control comes in. The graphics control translates SPI commands and data from the interpreter to SPI commands and data the LCD understands.
+
+\section{Memories of the graphics control}
+	\par The graphics control has several sort of memories. Although most of it is directly in ram, their purposes are completely different:
+
+	\subsection{Sprites in memory}
+		\par This part of the memory is used to store the actual data of a sprite, or the data for the visual representation of that particular sprite. It can contain up to 32 different sprites and a sprite is 8 by 8 pixels or 8 bytes in size. For an in-depth look on the format of sprites, please refer to chapter~\ref{subsec:sprites}.
+
+		\par Every sprite in memory can be referenced by its number in memory, as there are 32 possible sprites valid numbers are from 1 up to 32.
+
+	\subsection{Sprites on screen}
+		\par This part of the memory tell the graphics control what to draw where concerning sprites. It can contain up to 32 record. A record is 3 bytes big and represents a sprite (first byte), a X position on the screen (second byte) and a Y position on the screen (third byte). From now on a sprite can be drawn on the screen. And a sprite on the screen is referenced by a list number, that number is the number of the record containing information of the sprite data and position. Note that multiple records can use the same sprite.
+
+	\subsection{Maps}
+	\label{subsec:maps}
+		\par This part of the memory is used for background maps. Up to four maps can be used. A map exists of tiles and these tiles are in fact just sprites. One must use the the number of the spite in memory to use it in a map. A map measures 16 by 8 tiles, or 128 by 64 pixels. For tiling the map a sequence of references to sprites is needed. A map is tiled from left to right and than from top to bottom. When drawing a map on the screen, one can give a X and Y offset, resulting in a scrollable background.
+
+	\subsection{Strings}
+	\label{subsec:strings}
+		\par This part of the memory is used to store pointers to string data. A string starts at the pointer location and ends when a null character is encountered. A maximum of 32 strings is allowed. The number of the string is used for referencing when drawing it to the screen.
+
+	\subsection{String data}
+	\label{subsec:stringdata}
+		\par This part of the memory is used to store the actual data for the strings. It can contain up to 256 characters. Therefore all the strings (including null characters) together can have a maximum size of 256 bytes. A new string starts where the old string ended. Therefore it is important to initialize the strings at the beginning. Otherwise conflicts of overwriting strings is a ever present danger.
+
+	\subsection{Font}
+		\par This part of the memory contains the data for the actual graphical representation of a ascii character on the screen. A character is made of five bytes, and is mapped onto a 5x7 font. This part is also the only part not in RAM, it is hard coded in the flash region of the microcontroller.
+
+	\subsection{VRAM}
+		\par This part of the memory is of uttermost importance, this is where everything containing some graphic content different from text is drawn. It is used as sort of double buffer. In this part of the memory the final image is rendered. First the background map is drawn onto it, if needed. Then the sprites are drawn onto it. Once a full image is complete it is send to the LCD where it remains in its VRAM until a new image is send.
+
+	\subsection{TRAM}
+		\par This part of the memory is used to display text on the screen. To show text on the screen the graphics control receives numbers corresponding to the ascii standard. These numbers are converted to graphical data trough the font memory. When sending the image to the screen, the text data is combined with the graphics data by means of a XOR operation. So the text is black on a white background and white on a black background.
+\section{The normal operation}
+	\par The normal way to go is to initialize the graphics control using its provided initializer. This takes care of correct reset timings for the LCD. From then on the graphics control is ready to receive data. This data is received over SPI and the data received will be seen as a command followed by some arguments if necessary. Correct operation is not guaranteed when synchronisation is lost or when faulty commands are send. Correct commands are:
+	\begin{tabular}{r|l}
+		Command & Description \\
+		Load sprite: 0x10 & Load a sprite in sprite memory \\
+		Load map: 0x12 & Load a map in map memory \\
+		Load string: 0x14 & Load a string in string memory \\
+		Set sprite: 0x16 & Initialize a sprite in sprites on screen memory \\
+		Update sprite: 0x18 & Draw a sprite on the screen at a certain position \\
+		Clear sprite: 0x1A & Remove a sprite from the screen \\
+		Draw map: 0x1C & Draw a map on the screen with a certain offset \\
+		Draw string: 0x1E & Draw a string on the screen at a certain position \\
+		Clear all: 0x20 & Clear both VRAM and TRAM \\
+		Clear graphics: 0x22 & Clear VRAM \\
+		Clear strings: 0x24 & Clear TRAM \\
+		Redraw: 0x26 & Send the VRAM and TRAM to the LCD \\
+		All on: 0x28 & Turn all the pixels on, draw them all black \\
+		All off: 0x2A &  Turn all the pixels of, draw them white\\
+		Invert: 0x2C &  Enable the inverted mode, black is white and vice versa\\
+		Normal: 0x2E &  Enable normal mode, to restore from inverted mode\\
+	\end{tabular}
+	The reception of SPI communication is done in the background by interrupts. In the foreground a routine constantly checks for new commands. If a command is received the routine waits for the needed arguments, and then it calls the corresponding function.
+
+
+

@@ -1,0 +1,1228 @@
+\newpage
+
+\section{Variable Manipulation}
+This section will describe all possible register and RAM manipulations with direct access. Only single registers or RAM addresses
+are to be changed in one variable manipulation instruction. If a value is present and a new value is written into a register or
+RAM address, the current value will be overwritten, and thus lost.
+
+\subsection{LD}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & LD Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Loads the 8 bit unsigned integer Op2 into register Op1. If a value is present in register Op1, it is overwritten.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LD R0, 0x0B
+#R0 now contains 11
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{CPY}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & CPY Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Copies the value of register Op2 to register Op1, retaining the value in register Op2. If a value is present in register Op1, it is overwritten.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+CPY R0,R1
+#R0 now has the value of R1
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{ST}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & ST Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: RAM address
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Stores the value of register Op2 to RAM address Op1, retaining the value in register Op2. If a value is present at RAM address Op1, it is overwritten.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+ST R0,0x04
+#RAM address 0x04 now contains the value of R0
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{STI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & STI Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: RAM address
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Loads the 8 bit unsigned integer Op2 to RAM address Op1. If a value is present at RAM address Op1, it is overwritten.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+STI 0x08,0x04
+#RAM addres 0x04 now contains 8
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{LR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & LR Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: RAM address
+\end{itemize}\\
+\noindent Description & Loads the value at RAM address Op2 into register Op1, retaining the value at RAM address Op2. If a value is present in register Op1, it is overwritten.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LR R0,0x34
+#R0 no contains the value of RAM address 0x34
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{EQU}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & EQU Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Checks if the values in registers Op1 and Op2 are equal. If so, 0x01 is placed in the HL register, else 0x00 is placed in HL.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R0,0x05
+LDI R1,0x23
+EQU R0,R1
+#HL now contains 0 since 0x05 and 0x23 are not equal
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{GT}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & GT Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Checks if the value in register Op1 is greater than the value in register Op2. If so, 0x01 is placed in the HL register, else 0x00 is placed in HL.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R0,0x03
+LDI R3,0x48
+GT R3,R0
+#HL now contains 0x01 since R3>R1
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{LT}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & LT Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Checks if the value in register Op1 is less than the value in register Op2. If so, 0x01 is placed in the HL register, else 0x00 is placed in HL.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R5,0x03
+LDI R9,0x99
+LT R5,R9
+#HL now contains 0x01 since 0x03<0x99
+\end{lstlisting} \\
+\end{longtable}
+
+
+\newpage
+
+\section{Mathematical Operations}
+This section describes all possible mathematical operations. An extensive set of operations is implemented, designed to simplify gamedesign.
+
+\subsection{ADD}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & ADD Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Adds the value of register Op2 to the value of register Op1 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+ADD R0,R1
+#R0 now contains the sum of R0 and R1
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{ADDI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & ADDI Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Adds Op2 to the value of register Op1 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+ADDI R0,0x09
+#R0 now contains the sum of R0 and 0x09
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{SUB}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & SUB Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Subtracts the value of register Op2 of the value of register Op1 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+SUB R0,R1
+#R0 now contains the difference of R0 and R1
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{SUBI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & ADD Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Subtracts Op2 of the value of register Op1 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+SUBI R0,0x03
+#R0 now contains the difference of R0 and 0x03
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{MUL}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & MUL Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Multiplies the value of register Op1 with the value of register Op2 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+MUL R0,R1
+#R0 now contains the multiplication of R0 and R1
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{MULI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & MULI Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Multiplies the value of register Op1 with Op2 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+MULI R0,0x11
+#R0 now contains the multiplication of R0 and
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{DIV}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & DIV Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Divides the value of register Op1 by the value of register Op2 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+DIV R0,R3
+#R0 now contains the division of R0 and R3
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{DIVI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & DIVI Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Divides the value of register Op1 by Op2 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+DIVI R0,0x10
+#R0 now contains the division of R0 and 0x10
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{INC}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & INC Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\end{itemize}\\
+\noindent Description & Increments the value of register Op1 by one and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R0,0x05
+INC R0
+#R0 now contains 0x06
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{DEC}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & DEC Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\end{itemize}\\
+\noindent Description & Decrements the value of register Op1 by one and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R0,0x06
+DEC R0
+#R0 now contains 0x05
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{PWR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & PWR Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Calculates the value of register Op2nd power of the value of register Op1 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R0,6
+LDI R1,3
+PWR R0,R1
+#R0 now contains 216, being 6^3
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{PWRI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & PWRI Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Calculates the Op2nd power of the value of register Op1 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R0,6
+PWRI R0,3
+#R0 now contains 216, being 6^3
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{SQRT}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & SQRT Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\end{itemize}\\
+\noindent Description & Calculates the square root of the value of register Op1 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R0,4
+SQRT R0
+#R0 now contains 2, being 4^(1/2)
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{LOG}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & LOG Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Calculates the log (value of register Op2nd based) of the value of register Op1 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R0,16
+LDI R1,2
+LOG R0,R1
+#R0 now contains 4, being 2log(16)
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{LOGI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & LOGI  \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Fixed value
+\end{itemize}\\
+\noindent Description & Calculates the log (Op2nd based) of the value of register Op1 and stores the result back in Op1.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R0,100
+LOGI R0,10
+#R0 now contains 2, being 10log(100)
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{RAND}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & RAND Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Generates a random number between the values of registers Op1 and Op2. The generated number is stored in the HL register.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R0,0x01
+LDI R1,0x09
+RAND R0,R1
+#HL now contains a random number between 0x01 and 0x09
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{RANDI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & RANDI Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Generates a random number between the 8 bit unsigned integers Op1 and Op2. The generated number is stored in the HL register.
+	 \\
+\noindent Code example & 
+\begin{lstlisting}
+RAND 0x01,0x09
+#HL now contains a random number between 0x01 and 0x09
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{NOP}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & NOP \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]None\end{itemize}\\
+\noindent Description & No operation \\
+\noindent Code example & 
+\begin{lstlisting}
+NOP
+\end{lstlisting} \\
+\end{longtable}
+
+
+\newpage
+
+\section{Bitwise Manipulation}
+Bitwise manipulation instructions compute logic (binary) states of one or two operands.
+
+\subsection{AND}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & AND Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+AND R0,R1
+#HL now contains the logic and of HL
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{ANDI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & ANDI Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+AND R0,0x03
+#HL now contains the bitwise and of R0 and 0x03
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{OR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & OR Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+OR R0,R1
+#HL now contains the bitwise or of R0 and R1
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{ORI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & ORI Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+OR R0,0x03
+#HL now contains the bitwise or of R0 and 0x03
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{XOR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & XOR Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: Register
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+XOR R0,R1
+#HL now contains the bitwise XOR of R0 and R1
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{XORI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & XORI Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+ORI R0,0x03
+#HL now contains the bitwise or of R0 and 0x03
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{NOT}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & NOT Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+NOT R0
+#HL now contains the inverted (bitwise not) of R0
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{STB}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & STB Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Sets bit Op2 of the value register Op1. \\
+\noindent Code example & 
+\begin{lstlisting}
+STB R0,0x03
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{CLB}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & CLB Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Clears bit Op2 of the value register Op1. \\
+\noindent Code example & 
+\begin{lstlisting}
+CLB R0,0x03
+\end{lstlisting} \\
+\end{longtable}
+
+
+\newpage
+
+\section{Calls and Jumps}
+Jumps are instructions that affect the program counter (PC). This makes it possible to select a specific piece of code to be executed.
+Calls are instructions that make it possible to execute a routine, after which a return is expected.
+
+\subsection{JMP}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & JMP Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 16 bit unsigned integer
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+JMP 0x0138
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{JMPR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & JMPRZ Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 16 bit unsigned integer
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+JMPR 0x0138
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{JMPZ}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & JMP Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 16 bit unsigned integer
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+EQU R0,0x05
+JMPZ 0x0138
+#Sets PC to 0x0138 if R0 does not equal 0x05
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{JMPRZ}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & JMPRZ Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 16 bit unsigned integer
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+EQU R0,0x05
+JMPRZ 0x0138
+#Sets PC to PC+0x0138 if R0 does not equal 0x05
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{JMPNZ}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & JMPNZ Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 16 bit unsigned integer
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+EQU R0,0x05
+JMPNZ 0x0138
+#Sets PC to 0x0138 if R0 equals 0x05
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{JMPRNZ}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & JMPRNZ Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 16 bit unsigned integer
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+EQU R0,0x05
+JMPNZ 0x0138
+#Sets PC to PC+0x0138 if R0 equals 0x05
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{CALL}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & CALL Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 16 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Performs a call to a subroutine by setting the PC at Op1. Before this, the current PC is pushed to the stack, this enables returning to the last instruction before the call. \\
+\noindent Code example & 
+\begin{lstlisting}
+CALL 0x0312
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{RET}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & RET \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]None\end{itemize}\\
+\noindent Description & Used after a CALL, it pops the PC from the stack, thus performing a jump to the instruction after the call. \\
+\noindent Code example & 
+\begin{lstlisting}
+RET
+\end{lstlisting} \\
+\end{longtable}
+
+
+\newpage
+
+\section{Stack Manipulation}
+Registers can be pushed to the stack to temporary save them, to be popped later.
+
+\subsection{PUSH}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & PUSH Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+PUSH R0
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{PUSHI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & PUSHI Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned value
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+PUSH 0x08
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{POP}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & POP Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: Register
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+POP R0
+\end{lstlisting} \\
+\end{longtable}
+
+
+\newpage
+
+\section{Input}
+Input control enables the programmer to read input from the controllers. If a controller is not connected and read anyway, all values will be zero, but no error will occur.
+
+\subsection{BRD}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & BRD Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer (0 or 1)
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+BRD 0x01
+#HL now contains the button states of controller B
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{BRDS}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & BRDS Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer (0 or 1)
+\item Op2: 8 bit unsigned integer (0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40 or 0x80)
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+BRDS 0x01,0x02
+#HL now contains 0x01 if the A button of controller B was pressed
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{WAITF}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & WAITF Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer (0 or 1)
+\item Op2: 8 bit unsigned integer (0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40 or 0x80)
+\end{itemize}\\
+\noindent Description &  \\
+\noindent Code example & 
+\begin{lstlisting}
+WAITF 0x01,0x04
+#Pauses the program until the select button is pressed
+\end{lstlisting} \\
+\end{longtable}
+
+
+\newpage
+
+\section{Graphics Control}
+The graphic control instructions are used to send data to the display. The different datatypes defined are strings, sprites and maps.
+
+\subsection{SCRH}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & SCRH \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]None\end{itemize}\\
+\noindent Description & Places the screen height in the HL register. \\
+\noindent Code example & 
+\begin{lstlisting}
+SCRH
+#HL now contains the screen height
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{SCRW}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & SCRW \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]None\end{itemize}\\
+\noindent Description & Places the screen width in the HL register. \\
+\noindent Code example & 
+\begin{lstlisting}
+SCRW
+#HL now contains the screen width
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{ASPR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & ASPR Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Writes a sprite from the sprite buffer to the VRAM. Once placed in VRAM, the sprite can be drawn on screen with the index defined with Op2. \\
+\noindent Code example & 
+\begin{lstlisting}
+ASPR 0x02,0x32
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{DSPR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & DSPR Op1,Op2,Op3 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer
+\item Op2: Register
+\item Op3: Register
+\end{itemize}\\
+\noindent Description & Draws sprite Op1 (VRAM index) on screen at position Op2,Op3 (x,y). \\
+\noindent Code example & 
+\begin{lstlisting}
+DSPR 0x02,0x13,0x09
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{RSPR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & RSPR Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Removes the sprite with index Op1 from the VRAM sprite index. It cannot be drawn from now on. \\
+\noindent Code example & 
+\begin{lstlisting}
+RSPR 0x03
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{CKSPR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & CKSPR Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Checks if two sprites are colliding. If true, 0x01 is placed in the HL register, else 0x00. \\
+\noindent Code example & 
+\begin{lstlisting}
+CKSPR
+JMPNZ 0x03
+\end{lstlisting} \\
+\end{longtable}
+
+\newpage
+
+\subsection{DMAP}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & DMAP Op1 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Draws a map to the screen, starting at position (0,0) until the end of the screen. Op1 is the index in the VRAM map buffer. \\
+\noindent Code example & 
+\begin{lstlisting}
+DMAP 0x04
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{DSTR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & DSTR Op1,Op2,Op3 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer
+\item Op2: Register
+\item Op3: Register
+\end{itemize}\\
+\noindent Description & Draws string Op1 (VRAM string index) to the screen at position Op2,Op3 (x,y). \\
+\noindent Code example & 
+\begin{lstlisting}
+DSTR 0x02,0x20,0x15
+\end{lstlisting} \\
+\end{longtable}
+
+
+\newpage
+
+\section{Delay}
+Delays makes it possible for the programmer to perform nothing for a specific time, being either ms or us, depending on the arguments passed.
+
+\subsection{WAIT}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & WAIT Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer
+\item Op2: Register
+\end{itemize}\\
+\noindent Description & Waits during a specific time, depending on both Op1 and Op2. The scale is set by Op1 by passing the power of ten in milliseconds. The value of Op2 is the time. The actual waiting time is 10^Op1 * Op2. \\
+\noindent Code example & 
+\begin{lstlisting}
+LDI R0,0x05
+WAIT 0x03,R0
+#Waits for 10^3 * 5 ms ( = 500 ms)
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{WAITI}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & WAITI Op1,Op2 \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]
+\item Op1: 8 bit unsigned integer
+\item Op2: 8 bit unsigned integer
+\end{itemize}\\
+\noindent Description & Waits during a specific time, depending on both Op1 and Op2. The scale is set by Op1 by passing the power of ten in milliseconds. The value of Op2 is the time. The actual waiting time is 10^Op1 * Op2. \\
+\noindent Code example & 
+\begin{lstlisting}
+WAIT 0x02,0x5A
+#Waits for 10^2 * 90 ms ( = 9 seconds)
+\end{lstlisting} \\
+\end{longtable}
+
+
+\newpage
+
+\section{Timer}
+One timer is accessible for the programmer. It is only 8 bit, so attention should be paid since an overflow can occur.
+
+\subsection{CTMR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & CTMR \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]None\end{itemize}\\
+\noindent Description & Clears the timer by setting its value to 0 (zero). \\
+\noindent Code example & 
+\begin{lstlisting}
+CTMR
+\end{lstlisting} \\
+\end{longtable}
+
+
+\subsection{RTMR}
+\renewcommand*{\arraystretch}{2.0}
+\begin{longtable}{P{3cm}P{9cm}}
+\midrule
+\noindent Instruction & RTMR \\
+\noindent Operands &
+\begin{itemize}[label={},noitemsep,leftmargin=*,topsep=0pt,partopsep=0pt, itemsep=1em]None\end{itemize}\\
+\noindent Description & Places the value of the timer in the HL register. \\
+\noindent Code example & 
+\begin{lstlisting}
+RTMR
+#Now HL contains the timer value
+\end{lstlisting} \\
+\end{longtable}
+
